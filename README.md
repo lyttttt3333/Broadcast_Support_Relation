@@ -16,6 +16,8 @@ Our team:
 
 Project Page: https://lyttttt3333.github.io/broadcast.github.io/
 
+If there is any question, please contact Yitong Li (liyitong_thu@gmail_com) and Ruihai Wu (wuruihai@pku_edu_cn).
+
 ## abstract
 
 In our daily life, cluttered objects are everywhere, from scattered stationery and books cluttering the table to bowls and plates filling the kitchen sink. Retrieving a target object from clutters is an essential while challenging skill for robots, for the difficulty of safely manipulating an object without disturbing others, which requires the robot to plan a manipulation sequence and first move away a few other objects supported by the target object step by step. However, due to the diversity of object configurations (e.g., categories, geometries, locations and poses) and their combinations in clutters, it is difficult for a robot to accurately infer the support relations between objects faraway with various objects in between. 

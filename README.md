@@ -25,12 +25,11 @@ In this paper, we study retrieving objects in complicated clutters via a novel m
 # Citations
     
     @inproceedings{
-        anonymous2024broadcasting,
+        li2024broadcasting,
         title={Broadcasting Support Relations Recursively from Local Dynamics for Object Retrieval in Clutters},
-        author={Anonymous},
+        author={Li, Yitong and Wu, Ruihai and Lu, Haoran and Ning, Chuanruo and Shen, Yan and Zhan, Guanqi and Dong, Hao},
         booktitle={Robotics: Science and Systems},
-        year={2024},
-        url={https://openreview.net/forum?id=H4vS2MJu9T}
+        year={2024}
         }
 
 # Introduction

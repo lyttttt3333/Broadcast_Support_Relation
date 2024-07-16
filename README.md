@@ -27,12 +27,11 @@ In this paper, we study retrieving objects in complicated clutters via a novel m
 # Citations
     
     @inproceedings{
-        anonymous2024broadcasting,
+        li2024broadcasting,
         title={Broadcasting Support Relations Recursively from Local Dynamics for Object Retrieval in Clutters},
-        author={Anonymous},
+        author={Li, Yitong and Wu, Ruihai and Lu, Haoran and Ning, Chuanruo and Shen, Yan and Zhan, Guanqi and Dong, Hao},
         booktitle={Robotics: Science and Systems},
-        year={2024},
-        url={https://openreview.net/forum?id=H4vS2MJu9T}
+        year={2024}
         }
 
 # Introduction
@@ -73,61 +72,34 @@ For data collection, we use ISAAC SIM 23.1.1 and the built-in python environment
 
 Before training the network, we need to collect a large set of clutter scenes in the simulator, using the script 
 
-    python data_generation/scene_building/gen_clutter_scene.py --save_path --input_path
-
-For the arguments of this script, `--input_path` for loading the objects model such as shapenet and `--save_path` for saving the generated scenes configurations in `{index}.yaml`.
+    python data_generation/scene_building/gen_clutter_scene.py
 
 Based on the scenes, we can collect interactions for training modules of relation inference. 
 
-    python data_generation/data_collection/gen_interaction.py --save_path --input_path --indice
-
-For the arguments of this script, `--input_path` and `--indice` for loading the clutter scenes configurations you have saved in `data_generation/scene_building/gen_clutter_scene.py` and `--save_path` for saving the generated interaction data for training mainly in `.npy`.
+    python data_generation/data_collection/gen_interaction.py
 
 Second, for grasp modules, we first document which points to try by `data_generation/data_collection/gen_pre_grasp.py`. And then we can collection the grasp ground truth parallel, which can be run by
 
-    python data_generation/data_collection/gen_grasp.py --robot_path ...
-
-where a list of path is required, for example, `--robot_path` for the franka source file in ISAAC SIM. More information can be found in python script `data_generation/data_collection/gen_grasp.py`.
+    python data_generation/data_collection/gen_grasp.py
 
 Generating enough offline interaction trials is necessary for a successful learning, and it may require many CPU hours for the data collection.  
 
 ## Modules Training
 
-After the data generation, you can use `preprocess.py` to process the raw data into the formation of modules' inputs.
+After the data generation, you can use `preprocess_*.py` to process the raw data into the formation of modules' inputs.
 
-Then we can use the following scripts to train different modules. In the following commands, the `--input_path` means the save path for pre-process and the `--save_path` means the path to save the trained modules.
+Then we can use the following scripts to train different modules. 
 
-For `Local Dynamics Predictor`,
+For example, to train `Local Dynamics Predictor`,
 
-    python train_LDP.py --input_path --save_path
-
-For `Retrieval Direction Scoring Module`,
-
-    python train_RDS.py --input_path --save_path
-
-For `Retrieval Direction Proposal Module`,
-
-    python train_RDP.py --input_path --save_path
-
-For `Grasp Pose Scoring Module`,
-
-    python train_GPS.py --input_path --save_path
-
-For `Grasp Pose Proposal Module`,
-
-    python train_GPP.py --input_path --save_path
-
-For `Grasp Affordance Module`,
-
-    python train_GA.py --input_path --save_path
+    python train_LDP.py
 
 ## Support Relation Inference
 
 After that, we can construct the `Clutter Solver` based on the trained modules by, which can output the inferred support relations from a given scene. As the core part of this work, `Clutter Solver` does not need any additional training process but a list of trained modules, which can be run by
 
-    python inference_Clutter_Solver.py --modules_path --pointcloud_path...
+    python inference_Clutter_Solver.py
 
-where `--modules_path` is a list of paths which can lead to the trained modules and `--pointcloud_path...` arguments is the data for the given scene. More information can be found in the `help` of `build_CS.py`.
 
 
 

@@ -72,27 +72,21 @@ Before training the network, we need to collect a large set of clutter scenes in
 
     python data_generation/scene_building/gen_clutter_scene.py
 
-For the arguments of this script, `--input_path` for loading the objects model such as shapenet and `--save_path` for saving the generated scenes configurations in `{index}.yaml`.
-
 Based on the scenes, we can collect interactions for training modules of relation inference. 
 
     python data_generation/data_collection/gen_interaction.py
-
-For the arguments of this script, `--input_path` and `--indice` for loading the clutter scenes configurations you have saved in `data_generation/scene_building/gen_clutter_scene.py` and `--save_path` for saving the generated interaction data for training mainly in `.npy`.
 
 Second, for grasp modules, we first document which points to try by `data_generation/data_collection/gen_pre_grasp.py`. And then we can collection the grasp ground truth parallel, which can be run by
 
     python data_generation/data_collection/gen_grasp.py
 
-where a list of path is required, for example, `--robot_path` for the franka source file in ISAAC SIM. More information can be found in python script `data_generation/data_collection/gen_grasp.py`.
-
 Generating enough offline interaction trials is necessary for a successful learning, and it may require many CPU hours for the data collection.  
 
 ## Modules Training
 
-After the data generation, you can use `preprocess.py` to process the raw data into the formation of modules' inputs.
+After the data generation, you can use `preprocess_*.py` to process the raw data into the formation of modules' inputs.
 
-Then we can use the following scripts to train different modules. In the following commands, the `--input_path` means the save path for pre-process and the `--save_path` means the path to save the trained modules.
+Then we can use the following scripts to train different modules. 
 
 For example, to train `Local Dynamics Predictor`,
 

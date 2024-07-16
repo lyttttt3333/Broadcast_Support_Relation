@@ -5,18 +5,15 @@ from module import Pose_Proposal
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='add arguments to build clutter solver')
+    parser = argparse.ArgumentParser()
 
-    parser.add_argument('--data_dir', type=str, default="D:\\broadcast_final\\data\\data_affordance\\train")
-
+    parser.add_argument('--data_dir', type=str, default=None, help="training data path")
+    parser.add_argument('--save_path', type=str, default=None, help="the root path to store ckpts of all models")
     parser.add_argument('--device', type=str, default="cuda:0")
-
-    parser.add_argument('--save_path', type=str, default="D:\\broadcast_final\\Code_BroadcastSupportRelation\\data_model_ckpt")
-
     parser.add_argument('--env_point_num', type=int, default=1024)
     parser.add_argument('--obj_point_num', type=int, default=256)
-    parser.add_argument('--batch_num', type=int, default=2)
-    parser.add_argument('--epoch_num', type=int, default=1)
+    parser.add_argument('--batch_num', type=int, default=4)
+    parser.add_argument('--epoch_num', type=int, default=150)
 
     args = parser.parse_args() 
 

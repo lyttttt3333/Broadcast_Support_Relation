@@ -38,9 +38,9 @@ if __name__ == '__main__':
     parser.add_argument('--env_point_num', type=int, default=1024)
     parser.add_argument('--obj_point_num', type=int, default=256)
     parser.add_argument('--direction_num', type=int, default=6)
-    parser.add_argument('--batch_num', type=int, default=1)
-    parser.add_argument('--test_num', type=int, default=64)
-    parser.add_argument('--epoch_num', type=int, default=1)
+    parser.add_argument('--batch_num', type=int, default=None)
+    parser.add_argument('--test_num', type=int, default=None)
+    parser.add_argument('--epoch_num', type=int, default=100)
 
     args = parser.parse_args() 
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
             batch_path=[train_paths[item] for item in batch_index]
             iteration(batch_path, num=batch_num, train=True)
 
-        #iteration(eval_paths,num=len(eval_paths),train=False)
+        iteration(eval_paths,num=len(eval_paths),train=False)
 
     proposer.save_model(save_path)
             

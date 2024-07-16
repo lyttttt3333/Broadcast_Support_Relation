@@ -174,28 +174,12 @@ def find_tran_mask(mask,seg):
     return tran_mask
 
 
-def keep_stability(world,camera,phy,rigid_label,device):
-    state_list=[]
+def keep_stability(world,camera):
     world.reset()
     camera.initialize()
     camera.post_reset()
-
-    for _ in range(120):
+    for _ in range(20):
         world.play()
-
-    # for _ in range(0):
-    #     world.play()
-    #     for var in rigid_label:
-    #         #current=0*var[0]._rigid_prim_view.get_velocities()
-    #         current = torch.zeros([1,6]).to(device)
-    #         var[0]._rigid_prim_view.set_velocities(current)
-    #         var[0].set_mass(0.01)
-
-    # for j in rigid_label:
-    #     position=j[0].get_current_dynamic_state().position
-    #     orientation=j[0].get_current_dynamic_state().orientation
-    #     state_list.append([position,orientation])
-    # return state_list
 
 
 def set_init_pos(world,rigid_label,state_list,device):

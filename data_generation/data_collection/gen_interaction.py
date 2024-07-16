@@ -11,7 +11,6 @@ class clutter_scene():
     def __init__(self, input_args) -> None:
         self.indice=input_args.indice
         self.dir_path=input_args.dir_path
-        #self.save_path=input_args.save_path
         self.save_path = os.path.join(input_args.dir_path,"data_interaction")
         if not os.path.exists(self.save_path):
             os.mkdir(self.save_path)
@@ -51,10 +50,7 @@ class clutter_scene():
         self.camera.add_pointcloud_to_frame(include_unlabelled=False)
 
         self.state_list=keep_stability(world=self.world,
-                                        camera=self.camera,
-                                        phy=self.phy,
-                                        rigid_label=self.rigid_label,
-                                        device=self.device)
+                                        camera=self.camera)
 
         self.logger=LogInteraction(self.indice,self.save_path,structure_path,self.camera,device=self.device)
 
@@ -70,7 +66,6 @@ class clutter_scene():
                 self.world.reset()
                 self.camera.initialize()
                 self.camera.post_reset()
-                #set_init_pos(self.world, self.rigid_label, self.state_list,device=self.device)
                 self.logger.log_init_info(iter)
                 velocity,vel1,vel2,vel3=random_select_orientation(self.device)
                 self.logger.log_action_info(vel1,vel2,vel3,str(rigid_index))
@@ -89,18 +84,18 @@ if __name__ == "__main__":
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument("--indice", type=int, default=1436,
+    argparser.add_argument("--indice", type=int, default=None,
                            help="the scene indice for simulation")
-    argparser.add_argument("--dir_path", type=str, default="/home/sim/.local/share/ov/pkg/isaac_sim-2023.1.0/standalone_examples/api/omni.isaac.kit/data",
+    argparser.add_argument("--dir_path", type=str, default=None,
                            help="the path for saving the scenes configurations")
-    argparser.add_argument("--save_path", type=str, default="/home/sim/.local/share/ov/pkg/isaac_sim-2023.1.0/standalone_examples/api/omni.isaac.kit/",
+    argparser.add_argument("--save_path", type=str, default=None,
                            help="the path to save the interaction data")
     argparser.add_argument("--physics_dt", type=float, default=1/20)
     argparser.add_argument("--rendering_dt", type=float, default=1/20)
     argparser.add_argument("--gravity", type=float, default=-9.8)
     argparser.add_argument("--max_direction_sample_num", type=int, default=6)
     argparser.add_argument("--max_simulation_time", type=int, default=36)
-    argparser.add_argument("--device", type=str, default="cuda:1")
+    argparser.add_argument("--device", type=str, default="cuda:0")
     argparser.add_argument("--backend", type=str, default="torch")
     argparser.add_argument("--stage_unit", type=float, default=0.01)
     argparser.add_argument("--camera_position", type=list, default=[0,0,5])

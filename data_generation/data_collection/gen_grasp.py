@@ -14,10 +14,10 @@ from omni.isaac.core import World
 class clutter_scene():
     def __init__(self, input_args) -> None:
 
-        self.pts_dir = "/home/sim/.local/share/ov/pkg/isaac_sim-2023.1.0/standalone_examples/api/omni.isaac.kit/data_interaction"
         self.indice=input_args.indice
         self.dir_path=input_args.dir_path
-        self.save_path=input_args.save_path
+        self.interaction_path=input_args.interaction_path
+        self.gripper_path=input_args.gripper_path
 
         self.physics_dt=input_args.physics_dt
         self.rendering_dt=input_args.rendering_dt
@@ -33,15 +33,15 @@ class clutter_scene():
         self.env_line = 2
         self.env_num = self.env_line ** 2
         self.grid = 2
-        self.gripper_path = "omniverse://localhost/Users/sim/frank_gripper_rigid.usd"
+        
 
         self.save_dir = os.path.join(self.dir_path, "data_affordance")
         if not os.path.exists(self.save_dir):
             os.mkdir(self.save_dir)
-        self.save_path = os.path.join(self.save_dir, f"{self.indice}")
-        if os.path.exists(self.save_path):
-            shutil.rmtree(self.save_path)
-        os.mkdir(self.save_path)
+        self.interaction_path = os.path.join(self.save_dir, f"{self.indice}")
+        if os.path.exists(self.interaction_path):
+            shutil.rmtree(self.interaction_path)
+        os.mkdir(self.interaction_path)
 
         
 
@@ -61,8 +61,6 @@ class clutter_scene():
 
         self.gripper_list=import_gripper(world=self.world,env_line=self.env_line,grid=self.grid,gripper_path=self.gripper_path)
 
-
-
         self.camera = Camera(
             prim_path="/World/camera",
             position=np.array(self.camera_position),
@@ -73,15 +71,13 @@ class clutter_scene():
         self.camera.add_semantic_segmentation_to_frame()
         self.camera.add_pointcloud_to_frame(include_unlabelled=False)
 
-        self.logger=LogInteraction(self.indice,self.save_path,structure_path,self.camera,device=self.device)
         self.target_pts, self.target_rigid = get_target_pts(root_dir=self.dir_path, index=self.indice, save_path = self.save_path) 
 
         
 
     def simulation(self):
         
-        #for rigid_idx in range(len(self.target_rigid)):
-        for rigid_idx in range(2):
+        for rigid_idx in range(len(self.target_rigid)):
             target_idx = self.target_rigid[rigid_idx]
             rigid_pts = self.target_pts[rigid_idx]
             batch_num = rigid_pts.shape[0]//self.env_num
@@ -92,31 +88,22 @@ class clutter_scene():
                                             sim_dt=self.physics_dt,
                                             save_path=self.save_path,
                                             target_idx=int(target_idx))
-            batch_num = 2
             for batch_idx in range(batch_num):
-
                 batch_pts = rigid_pts[self.env_num * batch_idx: self.env_num * (batch_idx + 1)]
-
                 controller.create_buffer()
-
-                for pose_sample_idx in range(6):
-
+                for pose_sample_idx in range(self.max_direction_sample_num):
                     controller.set_gripper_pose(grid=self.grid,env_line=self.env_line,
                                                 target_point=batch_pts)
                     self.world.reset()
                     for _ in range(18):
                         controller.move_toward()
                         self.world.step()
-
                     for _ in range(5):
                         controller.stop()
                         self.world.step()
-
                     controller.check_results()
                     self.world.stop()
-
                 controller.cat_buffer()
-
             controller.log_results()
 
 
@@ -126,18 +113,20 @@ if __name__ == "__main__":
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument("--indice", type=int, default=1436,
+    argparser.add_argument("--indice", type=int, default=None,
                            help="the scene indice for simulation")
-    argparser.add_argument("--dir_path", type=str, default="/home/sim/.local/share/ov/pkg/isaac_sim-2023.1.0/standalone_examples/api/omni.isaac.kit/data",
-                           help="the path for saving the scenes configurations")
-    argparser.add_argument("--save_path", type=str, default="/home/sim/.local/share/ov/pkg/isaac_sim-2023.1.0/standalone_examples/api/omni.isaac.kit/data_interaction",
+    argparser.add_argument("--dir_path", type=str, default=None,
+                           help="the root path of data")
+    argparser.add_argument("--interaction_path", type=str, default=None,
                            help="the path to save the interaction data")
+    argparser.add_argument("--gripper_path", type=str, default=None,
+                           help="the path to of gripper model")
     argparser.add_argument("--physics_dt", type=float, default=1/20)
     argparser.add_argument("--rendering_dt", type=float, default=1/20)
     argparser.add_argument("--gravity", type=float, default=-9.8)
     argparser.add_argument("--max_direction_sample_num", type=int, default=6)
     argparser.add_argument("--max_simulation_time", type=int, default=36)
-    argparser.add_argument("--device", type=str, default="cuda:1")
+    argparser.add_argument("--device", type=str, default="cuda:0")
     argparser.add_argument("--backend", type=str, default="torch")
     argparser.add_argument("--stage_unit", type=float, default=0.01)
     argparser.add_argument("--camera_position", type=list, default=[0,0,5])

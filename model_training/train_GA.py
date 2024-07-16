@@ -23,13 +23,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='add arguments to build clutter solver')
 
-    parser.add_argument('--data_dir', type=str, default="/home/sim/correspondence/safe_manipulation/rep/data_v11/afford_v5/train")
+    parser.add_argument('--data_dir', type=str, default=None, help="training data path")
+    parser.add_argument('--save_path', type=str, default=None, help="the root path to store ckpts of all models")
     parser.add_argument('--device', type=str, default="cuda:0")
-    parser.add_argument('--save_path', type=str, default="/home/sim/correspondence/safe_manipulation/rep/Code_BroadcastSupportRelation/data_model_ckpt")
     parser.add_argument('--env_point_num', type=int, default=1024)
     parser.add_argument('--obj_point_num', type=int, default=256)
-    parser.add_argument('--batch_num', type=int, default=1)
-    parser.add_argument('--epoch_num', type=int, default=1)
+    parser.add_argument('--batch_num', type=int, default=4)
+    parser.add_argument('--epoch_num', type=int, default=180)
 
     args = parser.parse_args() 
 
@@ -48,8 +48,6 @@ if __name__ == '__main__':
     train_dataset=MyDataset(index_list_train)
     dataloader_train=DataLoader(train_dataset,batch_size=batch_num,shuffle=True)
 
-    path_for_test=None
-
     afford=Affordance(device)
 
     for epoch in range(epoch_num):
@@ -63,7 +61,5 @@ if __name__ == '__main__':
             batch_path=batch_path_succ+batch_path_fail
             
             iteration(batch_path,train=True)
-
-        #iteration(path_for_test,train=False)
     afford.save_model(save_path)
         

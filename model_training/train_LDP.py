@@ -21,12 +21,12 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser()  
 
-    parser.add_argument("--input_path", type=str,default="D:\\broadcast_final\\data")
-    parser.add_argument("--save_path", type=str,default="D:\\broadcast_final\\Code_BroadcastSupportRelation\\data_model_ckpt")
+    parser.add_argument("--input_path", type=str,default=None, help="root path for data")
+    parser.add_argument("--save_path", type=str,default=None, help="root path for saving data")
     parser.add_argument("--point_num", type=int,default=256)
     parser.add_argument("--batch_num", type=int,default=32)
     parser.add_argument("--device", type=str,default="cuda:0")
-    parser.add_argument("--epoch", type=int,default=1)
+    parser.add_argument("--epoch", type=int,default=120)
     parser.add_argument("--seed", type=int,default=0)
 
     args=parser.parse_args()

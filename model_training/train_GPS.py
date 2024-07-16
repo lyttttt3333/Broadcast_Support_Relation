@@ -7,12 +7,9 @@ from module import Pose_Scoring
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='add arguments to build clutter solver')
 
-    parser.add_argument('--data_dir', type=str, default="D:\\broadcast_final\\data\\data_affordance\\train")
-
+    parser.add_argument('--data_dir', type=str, default=None, help="training data path")
+    parser.add_argument('--save_path', type=str, default=None, help="the root path to store ckpts of all models")
     parser.add_argument('--device', type=str, default="cuda:0")
-
-    parser.add_argument('--save_path', type=str, default="D:\\broadcast_final\\Code_BroadcastSupportRelation\\data_model_ckpt")
-
     parser.add_argument('--env_point_num', type=int, default=1024)
     parser.add_argument('--obj_point_num', type=int, default=256)
     parser.add_argument('--batch_num', type=int, default=1)
@@ -39,7 +36,7 @@ if __name__ == '__main__':
 
     for epoch in range(epoch_num):
         for batch_index in dataloader_train:
-            batch_path=[total_succ_path[item] for item in batch_index] #+ [total_fail_path[item] for item in batch_index]
+            batch_path=[total_succ_path[item] for item in batch_index] + [total_fail_path[item] for item in batch_index]
 
             Point=PointProcess(path_list=batch_path,device=device)
             Point.load_data()

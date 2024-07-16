@@ -108,21 +108,18 @@ class clutter_scene():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='add arguments to build clutter solver')
 
-    INPUT_PATH=["/home/sim/correspondence/safe_manipulation/shapes_pool/kitchen_cat/book_big.yaml",
-                "/home/sim/correspondence/safe_manipulation/shapes_pool/kitchen_cat/clock.yaml",
-                "/home/sim/correspondence/safe_manipulation/shapes_pool/kitchen_cat/frame.yaml",
-                "/home/sim/correspondence/safe_manipulation/shapes_pool/kitchen_cat/desk_bottle.yaml",
-                "/home/sim/correspondence/safe_manipulation/shapes_pool/kitchen_cat/sc.yaml",
-                "/home/sim/correspondence/safe_manipulation/shapes_pool/kitchen_cat/book_small.yaml"]
+    INPUT_PATH=None
+    # objects mesh dict in .yaml
+    # each item in the dicts refers to a usd file
 
     parser.add_argument('--input_path', type=str,
                         default=INPUT_PATH,
                         help="the path for object mesh")
     parser.add_argument('--cate_distribution', type=list,
                         default=[1,1,1,3,1,6],
-                        help="the h")
+                        help="the scenario composition of different categories")
     parser.add_argument('--dir_path', type=str,
-                        default="/home/sim/.local/share/ov/pkg/isaac_sim-2023.1.0/standalone_examples/api/omni.isaac.kit/data",
+                        default=None,
                         help="the path to save clutter configuration")
     parser.add_argument('--device', type=str, default="cuda:0")
     parser.add_argument('--physics_dt', type=float, default=1/20)

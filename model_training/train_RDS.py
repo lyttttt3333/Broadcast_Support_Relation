@@ -32,8 +32,8 @@ if __name__ == '__main__':
     parser.add_argument('--devices', type=list, default=[0,1])
 
     parser.add_argument('--input_path', type=str, 
-                        default="D:\\broadcast_final\\data")
-    parser.add_argument('--save_path', type=str, default="D:\\broadcast_final\\Code_BroadcastSupportRelation\\data_model_ckpt")
+                        default=None, help="root path for data")
+    parser.add_argument('--save_path', type=str, default=None, help="root path for saving data")
 
     parser.add_argument('--env_point_num', type=int, default=1024)
     parser.add_argument('--obj_point_num', type=int, default=256)

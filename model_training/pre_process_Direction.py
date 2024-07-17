@@ -150,7 +150,7 @@ def save_h5py(data:dict,path):
             file.create_dataset(name=name,data=data[name])
 
 
-root_dir = "D:\\broadcast_final\\data"
+root_dir = None #root dir for data
 
 input_root_path = os.path.join(root_dir,"data_interaction")
 save_root_path = os.path.join(input_root_path,"direction")

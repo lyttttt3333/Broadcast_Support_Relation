@@ -11,9 +11,9 @@ import os
 
 if __name__ == '__main__':
 
-    process_batch = 1
+    process_batch = 32
     device = "cuda:0"
-    root_dir = "D:\\broadcast_final\\data"
+    root_dir = None #root dir for data
     affordance_data_root_dir = os.path.join(root_dir, "data_affordance")
     train_paths,eval_paths =find_batch(affordance_data_root_dir)
     train_paths=train_paths

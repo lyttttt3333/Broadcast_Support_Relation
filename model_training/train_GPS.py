@@ -5,7 +5,7 @@ from module import Pose_Scoring
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='add arguments to build clutter solver')
+    parser = argparse.ArgumentParser()
 
     parser.add_argument('--data_dir', type=str, default=None, help="training data path")
     parser.add_argument('--save_path', type=str, default=None, help="the root path to store ckpts of all models")

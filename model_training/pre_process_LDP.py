@@ -70,10 +70,10 @@ def main(cfg):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description='add arguments to build clutter solver')
+    parser = argparse.ArgumentParser()
 
     parser.add_argument('--origin_data_path', type=str, 
-                        default="D:\\broadcast_final\\data")
+                        default=None, help="root dir for data")
     parser.add_argument('--device', type=str, default="cuda:0")
     parser.add_argument('--scene_point_num', type=int, default=10240)
     parser.add_argument('--subset_num_train', type=int, default=360)

@@ -16,7 +16,7 @@ Our team:
 
 Project Page: https://lyttttt3333.github.io/broadcast.github.io/
 
-If there is any question, please contact Yitong Li (liyitong_thu@gmail_com) and Ruihai Wu (wuruihai@pku_edu_cn).
+If there is any question, please contact Yitong (liyitong_thu@gmail_com) and Ruihai (wuruihai@pku_edu_cn).
 
 ## abstract
 

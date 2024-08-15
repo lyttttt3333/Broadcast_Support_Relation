@@ -2,7 +2,7 @@
 
 ![Overview](/images/teaser.png)
 
-## about this paper
+## About this Paper
 This paper has been accepted by RSS 2024!
 
 Our team: 
@@ -18,7 +18,7 @@ Project Page: https://lyttttt3333.github.io/broadcast.github.io/
 
 If there is any question, please contact Yitong (liyitong_thu@gmail_com) and Ruihai (wuruihai@pku_edu_cn).
 
-## abstract
+## Abstract
 
 In our daily life, cluttered scenarios are everywhere, from scattered stationery and books cluttering the table to bowls and plates filling the kitchen sink. Retrieving a target object from clutters is an essential while challenging skill for robots, for the difficulty of safely manipulating an object without disturbing others, which requires the robot to plan a manipulation sequence and first move away a few other objects supported by the target object step by step. However, due to the diversity of object configurations (e.g., categories, geometries, locations and poses) and their combinations in clutters, it is difficult for a robot to accurately infer the support relations between objects faraway with various objects in between. 
 
@@ -38,7 +38,7 @@ In this paper, we study retrieving objects in complicated clutters via a novel m
 
 This folder includes the code for our paper, Broadcasting Support Relations Recursively from Local Dynamics for Object Retrieval in Clutters, especially about clutter environment building, data generation, module training and inference.
 
-## About This Repository
+## About this Repository
     data_generation/        # contains data generation process
 
         scene_building/     
@@ -57,10 +57,7 @@ This folder includes the code for our paper, Broadcasting Support Relations Recu
         train_LDP.py        # train Local Dynamics Predictor
         train_RDS.py        # train Retrieval Direction Scoring Module
         train_RDP.py        # train Retrieval Direction Proposal Module
-        train_GPS.py        # train Grasp Pose Scoring Module
-        train_GPP.py        # train Grasp Pose Proposal Module
-        train_GA.py         # train Grasp Affordance Module
-        infereence_Clutter_Solver.py         # construct the Broadcast and Clutter Solver framework for support relation inference 
+        inference_Clutter_Solver.py         # construct the Broadcast and Clutter Solver framework for support relation inference 
 
 
 ## Dependencies
@@ -99,6 +96,18 @@ For example, to train `Local Dynamics Predictor`,
 After that, we can construct the `Clutter Solver` based on the trained modules by, which can output the inferred support relations from a given scene. As the core part of this work, `Clutter Solver` does not need any additional training process but a list of trained modules, which can be run by
 
     python inference_Clutter_Solver.py
+
+## Pre-trained Model
+
+We have provide the pretrained model in "model.zip", which contains the pretrained model and a portion of corresponding training data in "pair_train".
+
+You can simply run the pretrained model by
+
+    cls.load(path to the pretrained model directory)
+
+and use the data provided to conduct resume training or just validation. The data can be automatically divided into training and validation set. And the model can output the pairwise support relations from 0 to 1. After visualization, we take the following object pairs as example
+
+
 
 
 

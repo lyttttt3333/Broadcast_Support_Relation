@@ -105,6 +105,10 @@ You can simply run the pretrained model by
 
     cls.load(path to the pretrained model directory)
 
+For loading the provided data, please use 
+
+    parser.add_argument("--input_path", type=str,default=path to the data directory)
+
 and use the data provided to conduct resume training or just validation. The data can be automatically divided into training and validation set. 
 
 The model can output the pairwise support relations from 0 to 1. After visualization, we take the following object pairs as example

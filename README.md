@@ -105,10 +105,17 @@ You can simply run the pretrained model by
 
     cls.load(path to the pretrained model directory)
 
-and use the data provided to conduct resume training or just validation. The data can be automatically divided into training and validation set. And the model can output the pairwise support relations from 0 to 1. After visualization, we take the following object pairs as example
+and use the data provided to conduct resume training or just validation. The data can be automatically divided into training and validation set. 
+
+The model can output the pairwise support relations from 0 to 1. After visualization, we take the following object pairs as example
 
 ![Overview](/images/result.png)
 
+where the first line shows the red object support the blue one while the second line means that there is no support relation from the red one to the blue one.
+
+In the output of model, the former case is close to 0 and the second case is close to 1.
+
+More models along with detailed guidance will be released soon.
 
 
 

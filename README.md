@@ -117,6 +117,10 @@ The model can output the pairwise support relations from 0 to 1. After visualiza
 
 where the first line shows the red object support the blue one while the second line means that there is no support relation from the red one to the blue one.
 
+As another example,  the following figure shows the performance of affordance, where the red part indicates it can be grasped while the blue part cannot. The usage of model is just as the previous one.
+
+![Overview](/images/affordance.png)
+
 In the output of model, the former case is close to 0 and the second case is close to 1.
 
 More models along with detailed guidance will be released soon.

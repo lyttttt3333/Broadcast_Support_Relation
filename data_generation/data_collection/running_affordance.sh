@@ -13,10 +13,10 @@ for dir in "$PARENT_DIR"/*/; do
         last4="${dirname: -4}"
 
         if [ ${#dirname} -ge 4 ]; then
-            echo "运行 Python 脚本，参数: $last4"
+            echo "run $last4"
             "$PYTHON_COMMAND" "$PYTHON_SCRIPT" --indice "$last4"
         else
-            echo "跳过 $dirname: 名称长度不足4个字符。"
+            echo "skip $dirname"
         fi
     fi
 done

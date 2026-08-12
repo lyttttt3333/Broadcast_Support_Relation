@@ -14,7 +14,7 @@ Our team:
 [Guanqi Zhan](https://www.robots.ox.ac.uk/~guanqi/)
 [Hao Dong](https://zsdonghao.github.io/)
 
-Project Page: https://lyttttt3333.github.io/broadcast.github.io/
+Project Page: [https://lyttttt3333.github.io/broadcast.github.io/](https://lyttttt3333.github.io/broadcast/)
 
 If there is any question, please contact Yitong (liyitong_thu@gmail_com) and Ruihai (wuruihai@pku_edu_cn).
 
